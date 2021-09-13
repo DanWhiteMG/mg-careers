@@ -27,6 +27,7 @@ document.addEventListener('keypress', function (e) {
 init()
 
 function init() {
+    console.log("Hello World");
     let storedQuery = sessionStorage.getItem('query');
     if (!storedQuery) {
         getJobPostings(DEFAULT_QUERY, getSearchResults);
