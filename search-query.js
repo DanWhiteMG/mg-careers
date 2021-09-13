@@ -110,16 +110,16 @@ function printArrayToDOM(array) {
             let jobDate = document.createElement("p");
             jobDate.classList.add("job-date");
             // add content to created elements
-            newLink.href = "https://mears-careers.webflow.io/find-a-job/" + array[i].cr24b_jobrequisitionid;
+            newLink.href = `https://mears-careers.webflow.io/find-a-job/${array[i].cr24b_jobrequisitionid}`;
             jobTitle.textContent = array[i].cr24b_jobpostingtitle;
             jobReqId.textContent = array[i].cr24b_jobrequisitionid;
             jobType.textContent = array[i].cr24b_workersubtype;
-            jobLocation.textContent = array[i].cr24b_primaryjobpostinglocation + " - " + array[i].cr24b_primaryjobpostinglocationhierarchy; 
+            jobLocation.textContent = `${array[i].cr24b_primaryjobpostinglocation} - ${array[i].cr24b_primaryjobpostinglocationhierarchy}`; 
             jobSalary.textContent = array[i].cr24b_pay_text;
             // amend date format to UK date format for Last Updated Date
             let lastUpdated = stringToDate(array[i].cr24b_lastupdateddate,"MM/dd/yyyy","/");
             lastUpdated = lastUpdated.toLocaleDateString(lastUpdated);
-            jobDate.textContent = "Last updated: " + lastUpdated;
+            jobDate.textContent = `Last updated: ${lastUpdated}`;
             // append content to parent elements
             newLink.appendChild(jobReqId);
             newLink.appendChild(jobTitle);
