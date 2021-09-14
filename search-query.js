@@ -154,12 +154,12 @@ function getSearchResults() {
 
 // Function to filter parsed JSON response
 
-const checkboxes = document.querySelectorAll("div.mc-region-filter-wrapper > input[type='checkbox']");
+const regionCheckboxes = document.querySelectorAll("div.mc-region-filter-wrapper > input[type='checkbox']");
 let checkboxValues = [];
 
 // Execute filterCheckboxes() when checkbox is clicked
 
-checkboxes.forEach((box) => {
+regionCheckboxes.forEach((box) => {
     box.checked = false;
     box.addEventListener("change", () => filterCheckboxes());
 });
@@ -168,7 +168,7 @@ checkboxes.forEach((box) => {
 
 function getCheckboxValues() {
     let checkboxValues = [];
-    checkboxes.forEach((checkbox) => {
+    regionCheckboxes.forEach((checkbox) => {
           if (checkbox.checked) checkboxValues.push(checkbox.value);
     });
     return checkboxValues;
@@ -218,5 +218,8 @@ function getJobPostings(query, cFunction) {
 function clearSearchArray() {
     sessionStorage.clear();
     searchResults.innerHTML = "";
+    regionCheckboxes.forEach((box) => {
+        box.checked = false;
+    });
     init();
 }
