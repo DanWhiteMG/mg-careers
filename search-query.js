@@ -1,6 +1,7 @@
 // Declare variables
 
 const searchResults = document.getElementById("search-results-wrapper");
+const numberOfResults = document.getElementById("results");
 
 const xhttp = new XMLHttpRequest();
 
@@ -9,8 +10,6 @@ const url = "https://prod-18.uksouth.logic.azure.com:443/workflows/b025dcff1b5d4
 // Use wildcard query to retrieve all results for initial load
 
 const DEFAULT_QUERY = {'search': "*"};
-
-let filterText;
 
 // Override default browser behaviour and use Enter key to submit search
 
@@ -130,8 +129,10 @@ function printArrayToDOM(array) {
             newDiv.appendChild(newLink);
             searchResults.appendChild(newDiv);
         }
-
+        numberOfResults.textContent = array.length;
     }
+
+
 
     else searchResults.textContent = "Your search returned no results. Try something else, like 'plumber'.";
 
@@ -153,17 +154,50 @@ function getSearchResults() {
 
 // Function to filter parsed JSON response
 
-function filterJobPostings() {
+const checkboxes = document.querySelectorAll("div.mc-region-filter-wrapper > input[type='checkbox']");
+let checkboxValues = [];
 
-    let filter = document.getElementById("filter-search");
-    let filterText = filter.textContent;
+// Execute filterCheckboxes() when checkbox is clicked
 
+checkboxes.forEach((box) => {
+    box.checked = false;
+    box.addEventListener("change", () => filterCheckboxes());
+});
+
+// Add checked checkbox value to array
+
+function getCheckboxValues() {
+    let checkboxValues = [];
+    checkboxes.forEach((checkbox) => {
+          if (checkbox.checked) checkboxValues.push(checkbox.value);
+    });
+    return checkboxValues;
+}
+
+// Filter stored array based on value of checkboxes
+
+function filterCheckboxes() {
     let filteredJobs = sessionStorage.getItem('query');
     filteredJobs = JSON.parse(filteredJobs);
-    filteredJobs = filteredJobs.filter(function(e) {
-        return e.cr24b_primaryjobpostinglocationhierarchy == `${filterText}`;
-    });
+    checkboxValues = getCheckboxValues();
 
+    let filteredArray = [];
+    let sumFilter = [];
+    // For each checkbox value, filter the stored array and add each result to sumFilter
+    if (checkboxValues.length > 0) {
+        for (let i = 0; i < checkboxValues.length; i++) {
+            filteredArray = filteredJobs.filter((e) => {
+                return e.cr24b_primaryjobpostinglocationhierarchy === checkboxValues[i]
+            });
+            sumFilter.push(...filteredArray)
+        }
+        // Run printArrayToDOM function but using the filtered array
+        printArrayToDOM(sumFilter);
+
+    }
+
+    else 
+    // Run printArrayToDOM using no filters
     printArrayToDOM(filteredJobs);
 
 }
