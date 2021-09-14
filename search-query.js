@@ -218,4 +218,5 @@ function getJobPostings(query, cFunction) {
 function clearSearchArray() {
     sessionStorage.clear();
     searchResults.innerHTML = "";
+    init();
 }
