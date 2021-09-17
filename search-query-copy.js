@@ -152,21 +152,6 @@ function getCheckboxValues(checkboxValues, checkboxes) {
     return checkboxValues;
 }
 
-// Apply filter based on passed values from homepage
-
-const scotlandCheckbox = document.getElementById("scotland");
-
-function applyLocationQuery() {
-    let locationQuery = sessionStorage.getItem('location');
-    console.log(locationQuery);
-    if (locationQuery) {
-        let locationCheckbox = document.getElementById(locationQuery);
-        locationCheckbox.checked = true;
-        filterCheckboxes();
-        sessionStorage.removeItem('location');
-    }
-}
-
 // Filter stored array based on value of checkboxes
 
 function filterCheckboxes() {
@@ -255,6 +240,5 @@ function init() {
     else {
         storedQuery = JSON.parse(storedQuery);
         printArrayToDOM(storedQuery);
-    }
-    applyLocationQuery();        
+    }        
 }
