@@ -37,20 +37,15 @@ function storeQueryData(array) {
 
 // Function to set a location in sessionStore to be used as a filter on Find a Job page
 
-function searchJobsInLocationOrCategory(key, location) {
-    sessionStorage.setItem(key, location);
+function searchJobsInLocation(location) {
+    sessionStorage.setItem('location', location);
     showSearchResultsPage();
 }
 
-// location filter buttons
-document.getElementById("search-scotland").addEventListener("click", () => searchJobsInLocationOrCategory('location','scotland'));
-document.getElementById("search-wales").addEventListener("click", () => searchJobsInLocationOrCategory('location','wales'));
-document.getElementById("search-northern-ireland").addEventListener("click", () => searchJobsInLocationOrCategory('location','northern-ireland'));
-document.getElementById("search-england").addEventListener("click", () => searchJobsInLocationOrCategory('location','england'));
-// category filter buttons
-document.getElementById("search-housing-maintenance").addEventListener("click", () => searchJobsInLocationOrCategory('category','housing-repairs-maintenance'));
-document.getElementById("search-care").addEventListener("click", () => searchJobsInLocationOrCategory('category','care'));
-document.getElementById("search-housing-management").addEventListener("click", () => searchJobsInLocationOrCategory('category','housing-management'));
+document.getElementById("search-scotland").addEventListener("click", () => searchJobsInLocation('scotland'));
+document.getElementById("search-wales").addEventListener("click", () => searchJobsInLocation('wales'));
+document.getElementById("search-northern-ireland").addEventListener("click", () => searchJobsInLocation('northern-ireland'));
+document.getElementById("search-england").addEventListener("click", () => searchJobsInLocation('england'));
 
 // Callback function to parse JSON results from API
 
