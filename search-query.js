@@ -162,7 +162,6 @@ function applyLocationOrCategoryQuery() {
     let locationQuery = sessionStorage.getItem('location');
     let categoryQuery = sessionStorage.getItem('category');
     if (locationQuery) {
-        console.log(locationQuery);
         // For England, check all checkboxes except Wales, Scotland and NI
         if (locationQuery === "england") {
             regionCheckboxes.forEach((box) => {
