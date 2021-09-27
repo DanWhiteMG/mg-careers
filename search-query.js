@@ -131,6 +131,11 @@ const checkboxes = document.querySelectorAll("div.mc-filter-wrapper > div > div.
 const regionCheckboxes = document.querySelectorAll("div.mc-region-filter-wrapper > div > input[type='checkbox']");
 const categoryCheckboxes = document.querySelectorAll("div.mc-category-filter-wrapper > div > input[type='checkbox']");
 
+const walesCheckbox = document.getElementById("wales");
+const scotlandCheckbox = document.getElementById("scotland");
+const niCheckbox = document.getElementById("northern-ireland");
+
+
 let checkboxValuesRegion = [];
 let checkboxValuesCategory = [];
 
@@ -157,8 +162,19 @@ function applyLocationOrCategoryQuery() {
     let locationQuery = sessionStorage.getItem('location');
     let categoryQuery = sessionStorage.getItem('category');
     if (locationQuery) {
-        let locationCheckbox = document.getElementById(locationQuery);
-        locationCheckbox.checked = true;
+        console.log(locationQuery);
+        // For England, check all checkboxes except Wales, Scotland and NI
+        if (locationQuery === "england") {
+            regionCheckboxes.forEach((box) => {
+                box.checked = true;
+            })
+            walesCheckbox.checked = false;
+            scotlandCheckbox.checked = false;
+            niCheckbox.checked = false;
+        } else {
+            let locationCheckbox = document.getElementById(locationQuery);
+            locationCheckbox.checked = true;
+        }
         filterCheckboxes();
         sessionStorage.removeItem('location');
     } else if (categoryQuery) {
@@ -168,8 +184,6 @@ function applyLocationOrCategoryQuery() {
         sessionStorage.removeItem('category');
     }
 }
-
-
 
 // Filter stored array based on value of checkboxes
 
@@ -214,7 +228,9 @@ function filterCheckboxes() {
         }
         // Run printArrayToDOM function but using the filtered array
         printArrayToDOM(sumFilter);
-    }   else {
+    }   
+    
+    else {
         // Run printArrayToDOM using no filters
         printArrayToDOM(unfilteredJobs);
     }
@@ -240,8 +256,11 @@ function getJobPostings(query, cFunction) {
     }
 }
 
+const searchInput = document.getElementById("job-search-input");
+
 function clearSearchArray() {
     clearCheckboxes();
+    searchInput.value = "";
     sessionStorage.clear();
     searchResults.innerHTML = "";
     init();

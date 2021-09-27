@@ -1,6 +1,6 @@
 // POST URL for Relevance Search in Microsoft Power Apps
 
-const url = "https://prod-18.uksouth.logic.azure.com:443/workflows/b025dcff1b5d4f8d92cef2dc5aa372b7/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ChGFOW5dqQylSDku0ZyhPKn53mUPSlblYM9XaevD6LQ";
+let _0xee6d=["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x70\x72\x6F\x64\x2D\x31\x38\x2E\x75\x6B\x73\x6F\x75\x74\x68\x2E\x6C\x6F\x67\x69\x63\x2E\x61\x7A\x75\x72\x65\x2E\x63\x6F\x6D\x3A\x34\x34\x33\x2F\x77\x6F\x72\x6B\x66\x6C\x6F\x77\x73\x2F\x62\x30\x32\x35\x64\x63\x66\x66\x31\x62\x35\x64\x34\x66\x38\x64\x39\x32\x63\x65\x66\x32\x64\x63\x35\x61\x61\x33\x37\x32\x62\x37\x2F\x74\x72\x69\x67\x67\x65\x72\x73\x2F\x6D\x61\x6E\x75\x61\x6C\x2F\x70\x61\x74\x68\x73\x2F\x69\x6E\x76\x6F\x6B\x65\x3F\x61\x70\x69\x2D\x76\x65\x72\x73\x69\x6F\x6E\x3D\x32\x30\x31\x36\x2D\x30\x36\x2D\x30\x31\x26\x73\x70\x3D\x25\x32\x46\x74\x72\x69\x67\x67\x65\x72\x73\x25\x32\x46\x6D\x61\x6E\x75\x61\x6C\x25\x32\x46\x72\x75\x6E\x26\x73\x76\x3D\x31\x2E\x30\x26\x73\x69\x67\x3D\x43\x68\x47\x46\x4F\x57\x35\x64\x71\x51\x79\x6C\x53\x44\x6B\x75\x30\x5A\x79\x68\x50\x4B\x6E\x35\x33\x6D\x55\x50\x53\x6C\x62\x6C\x59\x4D\x39\x58\x61\x65\x76\x44\x36\x4C\x51"];const url=_0xee6d[0]
 
 // Use wildcard query to retrieve all results for initial load
 
@@ -63,7 +63,6 @@ function printArrayToDOM(array) {
         let dateB = new Date(b.cr24b_lastupdateddate);
         return dateB - dateA;
     });
-    console.log(array);
     if (array.length > 0) {
         // loop through JSON array and print search results to DOM
         for (let i = 0; i < array.length; i++) {
@@ -132,6 +131,11 @@ const checkboxes = document.querySelectorAll("div.mc-filter-wrapper > div > div.
 const regionCheckboxes = document.querySelectorAll("div.mc-region-filter-wrapper > div > input[type='checkbox']");
 const categoryCheckboxes = document.querySelectorAll("div.mc-category-filter-wrapper > div > input[type='checkbox']");
 
+const walesCheckbox = document.getElementById("wales");
+const scotlandCheckbox = document.getElementById("scotland");
+const niCheckbox = document.getElementById("northern-ireland");
+
+
 let checkboxValuesRegion = [];
 let checkboxValuesCategory = [];
 
@@ -154,14 +158,29 @@ function getCheckboxValues(checkboxValues, checkboxes) {
 
 // Apply filter based on passed values from homepage
 
-function applyLocationQuery() {
+function applyLocationOrCategoryQuery() {
     let locationQuery = sessionStorage.getItem('location');
-    console.log(locationQuery);
+    let categoryQuery = sessionStorage.getItem('category');
     if (locationQuery) {
-        let locationCheckbox = document.getElementById(locationQuery);
-        locationCheckbox.checked = true;
+        console.log(locationQuery);
+        if (locationQuery === "england") {
+            regionCheckboxes.forEach((box) => {
+                box.checked = true;
+            })
+            walesCheckbox.checked = false;
+            scotlandCheckbox.checked = false;
+            niCheckbox.checked = false;
+        } else {
+            let locationCheckbox = document.getElementById(locationQuery);
+            locationCheckbox.checked = true;
+        }
         filterCheckboxes();
         sessionStorage.removeItem('location');
+    } else if (categoryQuery) {
+        let categoryCheckbox = document.getElementById(categoryQuery);
+        categoryCheckbox.checked = true;
+        filterCheckboxes();
+        sessionStorage.removeItem('category');
     }
 }
 
@@ -208,7 +227,9 @@ function filterCheckboxes() {
         }
         // Run printArrayToDOM function but using the filtered array
         printArrayToDOM(sumFilter);
-    }   else {
+    }   
+    
+    else {
         // Run printArrayToDOM using no filters
         printArrayToDOM(unfilteredJobs);
     }
@@ -234,8 +255,11 @@ function getJobPostings(query, cFunction) {
     }
 }
 
+const searchInput = document.getElementById("job-search-input");
+
 function clearSearchArray() {
     clearCheckboxes();
+    searchInput.value = "";
     sessionStorage.clear();
     searchResults.innerHTML = "";
     init();
@@ -254,5 +278,5 @@ function init() {
         storedQuery = JSON.parse(storedQuery);
         printArrayToDOM(storedQuery);
     }
-    applyLocationQuery();        
+    applyLocationOrCategoryQuery();        
 }
