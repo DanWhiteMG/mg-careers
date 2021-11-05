@@ -57,12 +57,7 @@ const numberOfResults = document.getElementById("results");
 
 function printArrayToDOM(array) {
     searchResults.innerHTML = "";
-    // sort array by last updated so that when filtered, the most recent results are shown
-    array.sort((a, b) => {
-        let dateA = new Date(a.cr24b_lastupdateddate);
-        let dateB = new Date(b.cr24b_lastupdateddate);
-        return dateB - dateA;
-    });
+
     if (array.length > 0) {
         // loop through JSON array and print search results to DOM
         for (let i = 0; i < array.length; i++) {
