@@ -86,7 +86,7 @@ function printArrayToDOM(array) {
             let jobDate = document.createElement("p");
             jobDate.classList.add("job-date");
             // add content to created elements
-            newLink.href = `https://mears-careers.webflow.io/find-a-job/${array[i].cr24b_jobrequisitionid}`;
+            newLink.href = `/find-a-job/${array[i].cr24b_jobrequisitionid}`;
             jobTitle.textContent = array[i].cr24b_jobpostingtitle;
             jobReqId.textContent = array[i].cr24b_jobrequisitionid;
             jobType.textContent = array[i].cr24b_workersubtype;
@@ -106,7 +106,7 @@ function printArrayToDOM(array) {
             newDiv.appendChild(newLink);
             searchResults.appendChild(newDiv);
         }
-        numberOfResults.textContent = `Showing ${array.length} results`
+        numberOfResults.textContent = `Showing ${array.length} jobs`
     }
     else searchResults.textContent = "Your search returned no results. Try something else, like 'plumber'.";
 }
@@ -152,6 +152,7 @@ function getCheckboxValues(checkboxValues, checkboxes) {
 }
 
 // Apply filter based on passed values from homepage
+// Applies the necessary checkboxes based on the category or location selected
 
 function applyLocationOrCategoryQuery() {
     let locationQuery = sessionStorage.getItem('location');
