@@ -112,7 +112,7 @@ function printArrayToDOM(array) {
             newLink.appendChild(jobTitle);
             newLink.appendChild(jobType);
             newLink.appendChild(jobLocation);
-            newLink.appendChild(jobSalary);
+            //newLink.appendChild(jobSalary);
             newLink.appendChild(jobDate);
             newDiv.appendChild(newLink);
             searchResults.appendChild(newDiv);
