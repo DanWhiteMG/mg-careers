@@ -58,9 +58,6 @@ function stringToDate(_date, _format, _delimiter) {
 const searchResults = document.getElementById("search-results-wrapper");
 const numberOfResults = document.getElementById("results");
 
-// PRINT IT
-console.log(array);
-
 function printArrayToDOM(array) {
     searchResults.innerHTML = "";
 
@@ -288,3 +285,7 @@ function init() {
     }
     applyLocationOrCategoryQuery();
 }
+
+// PRINT IT
+console.log(array);
+JSON.stringify(array);
