@@ -95,7 +95,7 @@ function printArrayToDOM(array) {
             jobReqId.textContent = array[i].cr24b_jobrequisitionid;
             jobType.textContent = array[i].cr24b_workersubtype;
             jobLocation.textContent = `${array[i].cr24b_primaryjobpostinglocation} - ${array[i].cr24b_primaryjobpostinglocationhierarchy}`;
-            jobSalary.textContent = array[i].cr24b_pay + array[i].cr24b_jobrequisitionid;
+            jobSalary.textContent = array[i].cr24b_pay_text + array[i].cr24b_pay_to + array[i].cr24b_pay_from + array[i].cr24b_pay_rate + array[i].cr24b_jobsalary;
             // amend date format to UK date format for Last Updated Date
 			
 			
