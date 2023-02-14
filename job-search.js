@@ -63,7 +63,7 @@ const numberOfResults = document.getElementById("results");
 function printArrayToDOM(array) {
     searchResults.innerHTML = "";
 	
-	console.log(array);
+	//console.log(array);
 
     if (array.length > 0) {
         // loop through JSON array and print search results to DOM
@@ -88,8 +88,8 @@ function printArrayToDOM(array) {
             let jobLocation = document.createElement("p");
             jobLocation.classList.add("job-location");
             // create job salary and add class
-            let jobSalary = document.createElement("p");
-            jobSalary.classList.add("job-salary");
+            ////let jobSalary = document.createElement("p");
+            ////jobSalary.classList.add("job-salary");
             // create job salary and add class
             let jobDate = document.createElement("p");
             jobDate.classList.add("job-date");
@@ -99,7 +99,7 @@ function printArrayToDOM(array) {
             jobReqId.textContent = array[i].cr24b_jobrequisitionid;
             jobType.textContent = array[i].cr24b_workersubtype;
             jobLocation.textContent = `${array[i].cr24b_primaryjobpostinglocation} - ${array[i].cr24b_primaryjobpostinglocationhierarchy}`;
-            jobSalary.textContent = array[i].cr24b_pay_text + array[i].cr24b_pay_to + array[i].cr24b_pay_from + array[i].cr24b_pay_rate + array[i].cr24b_jobsalary;
+            ////jobSalary.textContent = array[i].cr24b_pay_text;
             // amend date format to UK date format for Last Updated Date
 			
 			
