@@ -55,13 +55,15 @@ function stringToDate(_date, _format, _delimiter) {
 
 // Function to print array to DOM
 
-console.log('Hello!');
+
 
 const searchResults = document.getElementById("search-results-wrapper");
 const numberOfResults = document.getElementById("results");
 
 function printArrayToDOM(array) {
     searchResults.innerHTML = "";
+	
+	console.log('Hello Dan!');
 
     if (array.length > 0) {
         // loop through JSON array and print search results to DOM
