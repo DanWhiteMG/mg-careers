@@ -63,7 +63,7 @@ const numberOfResults = document.getElementById("results");
 function printArrayToDOM(array) {
     searchResults.innerHTML = "";
 	
-	console.log('Hello Dan!');
+	console.log(array);
 
     if (array.length > 0) {
         // loop through JSON array and print search results to DOM
